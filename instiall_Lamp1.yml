@@ -1,0 +1,12 @@
+---
+ - name: config host
+   hosts: Group1
+   
+   tasks:
+     - name: Installing the Lamp package
+       yum: name={{item}} state=present disable_gpg_check=yes
+       with_items:
+         - httpd
+         - mariadb
+         - php
+       register: check_pkg

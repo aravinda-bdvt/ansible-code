@@ -1,0 +1,25 @@
+---
+ - name: config host
+   hosts: Group1
+   
+   tasks:
+     - name: Installing the Lamp package
+       yum: name={{item}} state=present disable_gpg_check=yes
+       with_items:
+         - httpd
+         - mariadb
+         - php
+       register: check_pkg
+
+     - name: checking packages
+       command: httpd -v
+       register: check_php_install
+       when: check_pkg|success
+
+     - name: moving the index file
+       copy: src=index.html dest=/var/www/html/index.html
+       when: check_php_install|success 
+    
+     - name: service start
+       service: name=httpd state=started     
+ 

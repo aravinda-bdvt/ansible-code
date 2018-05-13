@@ -1,0 +1,9 @@
+---
+ - name: implementing in local 
+   hosts: Group1 
+   tasks:
+     - name: Installing the httpd
+       yum: name=httpd state=installed
+
+     - name: starting the package
+       service: name=httpd state=started 

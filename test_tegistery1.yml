@@ -1,0 +1,13 @@
+---
+ - name: config the grp or client
+   hosts: Group1
+   become: true
+
+   tasks:
+     - name: Installing the PHP
+       yum: name=php state=installed disable_gpg_check=yes
+       register: php_install
+     
+     - name: checking php is installed?
+       command: php -v
+       when: php_install|success

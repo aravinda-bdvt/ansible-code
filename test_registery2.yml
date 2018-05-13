@@ -1,0 +1,15 @@
+---
+ - name: Installing the Inventary
+   hosts: Group1
+   
+   tasks:
+     - name: Removing the php
+       yum: name=php state=absent disable_gpg_check=yes
+       register: php_uninstiall_log
+       ignore_errors: true
+
+     - name: checking php is removed
+       debug: msg='php is uninstalled successfully'
+       when:  php_uninstiall_log|success
+       
+

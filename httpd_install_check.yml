@@ -1,0 +1,17 @@
+---
+ - name: config host
+   hosts: Group1
+ 
+   tasks:
+     - name: to check httpd installed
+       command: httpd -v
+       register: httpd_confirmatoin
+   
+     - name: confirming httpd is present
+       debug: msg='httpd is present'
+       when: httpd_confirmatoin|success
+   
+     - name: confirming httpd is not present
+       debug: msg='httpd is present'
+       when: httpd_confirmatoin|failed
+  

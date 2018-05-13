@@ -1,0 +1,12 @@
+---
+ - name: config host
+   hosts: Group1
+
+   tasks:
+     - name: install the tomcat
+       yum: name=tomcat state=present
+       register: check_tomcat_pkg
+	   
+     - name: Download WAR to server
+	   command: wget http://example.com/file.war -a warName=helloworld.war warRemotePath: /path/to/put/war     
+

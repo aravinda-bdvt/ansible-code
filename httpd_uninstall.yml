@@ -1,0 +1,18 @@
+---
+ - name: config group
+   hosts: Group1
+   
+   tasks:
+
+     - name: Un-instiall the httpd
+       yum: name=httpd state=absent
+       register: check_uninstiall
+       ignore error: yes
+      
+     -  name: check httpd exist
+        debug: msg= 'httpd exist'
+        when: check_uninstiall|success
+
+      - name: check httpd do not exist
+        debug: msg= 'httpd do not exist'
+        when: check_uninstiall|Failure
